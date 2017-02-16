@@ -19,15 +19,28 @@ class EmailTransformer extends TransformerAbstract
      */
     public function transform(Email $item)
     {
-        return [
-            'id' => $item->id,
-            'account_id' => $item->account_id,
-            'address' => $item->address,
-            'verified' => (bool)$item->verified,
-            'verification_token' => $item->verification_token,
-            'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
-            'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
-        ];
+        $user = auth()->user();
+
+        if ($user->can('view-token')) {
+            return [
+                'id' => $item->id,
+                'user_id' => $item->user_id,
+                'address' => $item->address,
+                'verified' => (bool)$item->verified,
+                'verification_token' => $item->verification_token,
+                'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+                'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
+            ];
+        } else {
+            return [
+                'id' => $item->id,
+                'user_id' => $item->user_id,
+                'address' => $item->address,
+                'verified' => (bool)$item->verified,
+                'created' => date('Y-m-d - H:i:s', strtotime($item->created_at)),
+                'updated' => date('Y-m-d - H:i:s', strtotime($item->updated_at)),
+            ];
+        }
     }
 
 }

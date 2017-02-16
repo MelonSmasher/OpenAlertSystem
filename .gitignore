@@ -1,6 +1,5 @@
 /node_modules
 /public/storage
-/public/hot
 /storage/*.key
 /vendor
 /.idea
@@ -46,17 +45,6 @@ $RECYCLE.BIN/
 
 # User-specific stuff:
 .idea/
-
-## File-based project format:
-*.iws
-
-## Plugin-specific files:
-
-# IntelliJ
-/out/
-
-# mpeltonen/sbt-idea plugin
-.idea_modules/
 
 # JIRA plugin
 atlassian-ide-plugin.xml

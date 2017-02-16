@@ -2,13 +2,18 @@
 
 @section('content')
     <div class="container">
+        <div class="row center-div">
+            <h1>Alert Profile</h1>
+        </div>
+        <br/>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading center-div"><h3>Mobile Phones</h3></div>
+                    <div class="panel-heading center-div"><h4>Mobile Phones</h4></div>
                     <div class="table-responsive">
                         <br/>
-                        <table class="table table-striped table-hover table-condensed">
+                        <table id="phoneTable" class=" table table-striped table-hover table-condensed
+                        ">
                             <thead>
                             <form name="new-phone-form" id="new-phone-form" role="form" data-toggle="validator">
                                 <div class="col-md-5">
@@ -45,9 +50,9 @@
                                 </div>
                             </form>
                             </thead>
-                            <tbody id="phones-body">
+                            <tbody>
                             @if(count($phones) <= 0)
-                                <tr>
+                                <tr id="phone-placeholder">
                                     <td>
                                         <div class="center-div">
                                             <h4>You have not added any phones yet.</h4>
@@ -73,6 +78,11 @@
                                             @endif
 
                                             <div class="center-div">
+                                                @if(!$phone->verified)
+                                                    <a href="/verify" class="btn btn-sm btn-success"><i
+                                                                class="fa fa-check-circle" aria-hidden="true"></i>
+                                                        Verify</a>
+                                                @endif
                                                 <button id="del-phone-{{$phone->id}}"
                                                         data-item-id="{{$phone->id}}"
                                                         data-item-type="phone"
@@ -83,9 +93,10 @@
                                             </div>
                                         </td>
                                     </tr>
-                            @endforeach
+                                @endforeach
 
                             @endif
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -95,12 +106,13 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading center-div"><h3>Email Addresses</h3></div>
+                    <div class="panel-heading center-div"><h4>Email Addresses</h4></div>
                     <div class="table-responsive">
                         <div class="center-div">
-                            <h5>Add another address?</h5>
+                            <p>The address, <b>{{$auth_email}}</b> will always receive alerts.</p>
+                            <p>Would you like to add another address?</p>
                         </div>
-                        <table class="table table-striped table-hover table-condensed">
+                        <table id="emailTable" class="table table-striped table-hover table-condensed">
                             <thead>
                             <form name="new-email-form" id="new-email-form" role="form" data-toggle="validator">
                                 <div class="col-md-9">
@@ -129,43 +141,47 @@
                             </form>
                             </thead>
                             <tbody>
-
-                            <tr>
-                                <td>
-                                    <div class="col-md-10">
-                                        <h4>{{$auth_email}} - Permanent</h4>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="center-div"></div>
-                                </td>
-                            </tr>
-
-                            @foreach($emails as $email)
-                                <tr id="email-{{$email->id}}" @if(!$email->verified) class="warning" @endif>
+                            @if(count($emails) <= 0)
+                                <tr id="email-placeholder">
                                     <td>
-                                        @if($email->verified)
-                                            <div class="col-md-9">
-                                                <h4>{{$email->address}}</h4>
-                                            </div>
-                                        @else
-                                            <div class="col-md-9">
-                                                <h4>{{$email->address}} - Unverified</h4>
-                                            </div>
-                                        @endif
                                         <div class="center-div">
-                                            <button id="del-email-{{$email->id}}"
-                                                    data-item-id="{{$email->id}}"
-                                                    data-item-type="email"
-                                                    data-ajax--url="/api/v1/user/email/{{$email->id}}"
-                                                    class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash" aria-hidden="true"></i> Delete
-                                            </button>
+                                            <h4>You have not added any additional emails yet.</h4>
                                         </div>
                                     </td>
+                                    <td>
+                                        <div class="center-div"></div>
+                                    </td>
                                 </tr>
-                            @endforeach
-
+                            @else
+                                @foreach($emails as $email)
+                                    <tr id="email-{{$email->id}}" @if(!$email->verified) class="warning" @endif>
+                                        <td>
+                                            @if($email->verified)
+                                                <div class="col-md-9">
+                                                    <h4>{{$email->address}}</h4>
+                                                </div>
+                                            @else
+                                                <div class="col-md-9">
+                                                    <h4>{{$email->address}} - Unverified</h4>
+                                                </div>
+                                            @endif
+                                            <div class="center-div">
+                                                @if(!$email->verified)
+                                                    <a href="/verify" class="btn btn-sm btn-success"><i
+                                                                class="fa fa-check-circle" aria-hidden="true"></i>Verify</a>
+                                                @endif
+                                                <button id="del-email-{{$email->id}}"
+                                                        data-item-id="{{$email->id}}"
+                                                        data-item-type="email"
+                                                        data-ajax--url="/api/v1/user/email/{{$email->id}}"
+                                                        class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i> Delete
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                             </tbody>
                         </table>
                     </div>
@@ -272,19 +288,86 @@
               $had_error = true;
             },
             success: function (result) {
-              console.log(result);
+              $result = result.data;
+              console.log($result)
+
               /**
                * TODO add saved item to page and return false to not submit the form
                */
               $('#flash').html('<p class="alert alert-success center-div"> ' + $type + ' created' + ' <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> </p>');
+              if ($type == 'phone') {
+                $('#phone-placeholder').remove()
+                if ($result.verified) {
+                  $('#phoneTable > tbody:last-child').append(
+                    '<tr id=phone-"' + $result.id + '" >' +
+                    '<td>' +
+                    '<div class="col-md-9">' +
+                    '<h4>' + $result.formatted + '</h4>' +
+                    '</div>' +
+                    '<div class="center-div">' +
+                    '<button id="del-phone-' + $result.id + '" data-item-id="' + $result.id + '" data-item-type="phone" data-ajax--url="/api/v1/user/phone/' + $result.id + '" class="btn btn-danger btn-sm">' +
+                    '<i class="fa fa-trash" aria-hidden="true"></i> Delete' +
+                    '</button>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>'
+                  );
+                } else {
+                  $('#phoneTable > tbody:last-child').append(
+                    '<tr id=phone-"' + $result.id + '" class="warning" >' +
+                    '<td>' +
+                    '<div class="col-md-9">' +
+                    '<h4>' + $result.formatted + ' - Unverified</h4>' +
+                    '</div>' +
+                    '<div class="center-div">' +
+                    '<a href="/verify" class="btn btn-sm btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i>Verify</a>' +
+                    '<button id="del-phone-' + $result.id + '" data-item-id="' + $result.id + '" data-item-type="phone" data-ajax--url="/api/v1/user/phone/' + $result.id + '" class="btn btn-danger btn-sm">' +
+                    '<i class="fa fa-trash" aria-hidden="true"></i> Delete' +
+                    '</button>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>'
+                  );
+                }
+
+              } else if ($type == 'email') {
+                $('#email-placeholder').remove()
+                if ($result.verified) {
+                  $('#emailTable > tbody:last-child').append(
+                    '<tr id=email-"' + $result.id + '" >' +
+                    '<td>' +
+                    '<div class="col-md-9">' +
+                    '<h4>' + $result.address + '</h4>' +
+                    '</div>' +
+                    '<div class="center-div">' +
+                    '<button id="del-email-' + $result.id + '" data-item-id="' + $result.id + '" data-item-type="email" data-ajax--url="/api/v1/user/email/' + $result.id + '" class="btn btn-danger btn-sm">' +
+                    '<i class="fa fa-trash" aria-hidden="true"></i> Delete' +
+                    '</button>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>'
+                  );
+                } else {
+                  $('#emailTable > tbody:last-child').append(
+                    '<tr id=email-"' + $result.id + '" class="warning" >' +
+                    '<td>' +
+                    '<div class="col-md-9">' +
+                    '<h4>' + $result.address + ' - Unverified</h4>' +
+                    '</div>' +
+                    '<div class="center-div">' +
+                    '<a href="/verify" class="btn btn-sm btn-success"><i class="fa fa-check-circle" aria-hidden="true"></i>Verify</a>' +
+                    '<button id="del-email-' + $result.id + '" data-item-id="' + $result.id + '" data-item-type="email" data-ajax--url="/api/v1/user/email/' + $result.id + '" class="btn btn-danger btn-sm">' +
+                    '<i class="fa fa-trash" aria-hidden="true"></i> Delete' +
+                    '</button>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>'
+                  );
+                }
+              }
             }
           });
-
-          if ($type == 'phone') {
-            $($button).prop('disabled', false).html('<i class="fa fa-phone" aria-hidden="true"></i> Save');
-          } else if ($type == 'email') {
-            $($button).prop('disabled', false).html('<i class="fa fa-envelope" aria-hidden="true"></i> Save');
-          }
+          $($button).prop('disabled', false).html('<i class="fa fa-plus" aria-hidden="true"></i> Add');
         }
         // if ($had_error) {
         return false;

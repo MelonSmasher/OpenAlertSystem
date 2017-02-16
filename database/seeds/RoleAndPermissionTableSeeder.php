@@ -42,6 +42,12 @@ class RoleAndPermissionTableSeeder extends Seeder
             'description' => 'Can manage users and their roles.',
         ]);
 
+        $viewToken = Permission::create([
+            'name' => 'view-token',
+            'display_name' => 'View Token',
+            'description' => 'Can view a users verification token.',
+        ]);
+
         /**
          * ROLES
          */
@@ -79,7 +85,8 @@ class RoleAndPermissionTableSeeder extends Seeder
         $powerUser->attachPermissions([
             $manageUsers,
             $sendSMS,
-            $sendEmail
+            $sendEmail,
+            $viewToken
         ]);
 
         $notifier->attachPermissions([

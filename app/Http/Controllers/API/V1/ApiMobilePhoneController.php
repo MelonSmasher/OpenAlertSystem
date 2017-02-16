@@ -7,6 +7,7 @@ use App\Model\MobilePhone;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use App\Http\Transformers\MobilePhoneTransformer;
 use Illuminate\Support\Facades\Validator;
+use SimpleSoftwareIO\SMS\Facades\SMS;
 
 class ApiMobilePhoneController extends BaseAPIController
 {
@@ -60,6 +61,13 @@ class ApiMobilePhoneController extends BaseAPIController
 
         $user = $this->auth->user();
 
+        if ($toRestore = MobilePhone::onlyTrashed()->where('number', $data['number'])->first()) {
+            $toRestore->restore();
+            $toRestore->verified = false;
+            $toRestore->verification_token = null;
+            $toRestore->save();
+        }
+
         $item = MobilePhone::updateOrCreate(['number' => $data['number']], [
             'user_id' => $user->id,
             'mobile_carrier_id' => $data['carrier'],
@@ -68,7 +76,18 @@ class ApiMobilePhoneController extends BaseAPIController
 
         // If the email is not verified
         if (!$item->verified) {
-            //@todo send the verification SMS
+            $token = generateVerificationToken();
+            $item->verification_token = $token;
+            $item->save();
+            $message = "Welcome!\nYour code is: " . $token . "\nTo verify this number visit:\n" . url('/verify/' . $token);
+            // @todo this should be queued at some point
+            SMS::send($message, [], function ($sms) use ($item) {
+                if (env('SMS_DRIVER', 'email') === 'email') {
+                    $sms->to('+1' . $item->number, $item->carrier->code);
+                } else {
+                    $sms->to('+1' . $item->number);
+                }
+            });
         }
 
         $trans = new MobilePhoneTransformer();

@@ -29,6 +29,15 @@ $api->version('v1', ['middleware' => 'api.throttle', 'limit' => 500, 'expires' =
      * https://github.com/dingo/api/issues/1221
      */
     $api->group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\API\V1'], function ($api) {
+
+        $api->group(['prefix' => 'auth'], function ($api) {
+            $api->post('/', ['uses' => 'ApiAuthenticationController@authenticate', 'as' => 'api.authenticate']);
+            $api->get('validate', ['uses' => 'ApiAuthenticationController@validateAuth', 'as' => 'api.validate_auth', 'middleware' => 'api.validate.session']);
+        });
+
+        $api->get('verify/{token}', ['uses' => 'TokenVerificationController@verify', 'as' => 'api.send.verify.token']);
+        $api->post('verify', ['uses' => 'TokenVerificationController@verify', 'as' => 'api.post.verify.token']);
+
         $api->group(['middleware' => 'api.auth'], function ($api) {
             $api->group(['prefix' => 'user'], function ($api) {
                 $api->group(['prefix' => 'email'], function ($api) {

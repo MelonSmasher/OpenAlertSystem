@@ -50,7 +50,7 @@ class SocialAccountServiceProvider
             if (!$user) {
                 // Validate their email domain...
                 $validator = Validator::make(['email' => strtolower($providerUser->getEmail())], [
-                    'email' => 'regex:/@.*' . str_replace('.', '\.', strtolower(env('VALID_AUTH_DOMAIN'))) . '$/',
+                    'email' => 'regex:/@.*' . str_replace('.', '\.', strtolower(env('VALID_AUTH_DOMAIN', '*'))) . '$/',
                 ]);
                 // Did the validator fail?
                 if ($validator->fails()) {

@@ -64,6 +64,10 @@ class ApiEmailController extends BaseAPIController
                 throw new StoreResourceFailedException('Could not store email.', ['The email address entered is a member of a forbidden domain: ' . $email_domain]);
         }
 
+        if ($toRestore = Email::onlyTrashed()->where('address', $data['email'])->first()) {
+            $toRestore->restore();
+        }
+
         $user = $this->auth->user();
 
         $item = Email::updateOrCreate(['address' => $data['email']], [
@@ -73,11 +77,14 @@ class ApiEmailController extends BaseAPIController
 
         // If the email is not verified
         if (!$item->verified) {
+            $token = generateVerificationToken();
+            $item->verification_token = $token;
+            $item->save();
             //@todo send the verification email
         }
 
         $trans = new EmailTransformer();
         $item = $trans->transform($item);
-        return $this->response->created(route('api.emails.show', ['id' => $item['id']]), ['data' => $item]); //@todo remove verification code from response
+        return $this->response->created(route('api.emails.show', ['id' => $item['id']]), ['data' => $item]);
     }
 }

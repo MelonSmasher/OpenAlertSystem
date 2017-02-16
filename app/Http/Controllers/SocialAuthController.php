@@ -40,6 +40,6 @@ class SocialAuthController extends Controller
             abort(500);
         }
 
-        return redirect()->intended('/home');
+        return redirect()->intended('/');
     }
 }

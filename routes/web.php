@@ -33,5 +33,11 @@ Route::group(['prefix' => 'social'], function () {
 
 Route::group(['middleware' => ['auth', 'jwt.cookie']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::group(['prefix' => 'verify'], function () {
+        Route::get('/{token}', ['uses' => 'VerifyFrontEndController@verify', 'as' => 'get.verify.token']);
+        Route::get('/', ['uses' => 'VerifyFrontEndController@verify', 'as' => 'get.verify']);
+        Route::post('/', ['uses' => 'VerifyFrontEndController@verify', 'as' => 'send.verify.token']);
+    });
+
 });
 
