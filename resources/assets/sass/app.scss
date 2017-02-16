@@ -1,0 +1,29 @@
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+@import "node_modules/select2/src/scss/core.scss";
+
+@import "node_modules/select2-bootstrap-theme/src/select2-bootstrap.scss";
+
+.center-div {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+.push {
+  height: 80px;
+}

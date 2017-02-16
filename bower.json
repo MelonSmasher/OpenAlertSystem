@@ -1,0 +1,26 @@
+{
+  "name": "OpenAlertSystem",
+  "description": "Mass Alerting System.",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor/bower_dl",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-social": "^5.0.0",
+    "bootstrap": "^3.3.6",
+    "font-awesome": "fontawesome#^4.6.3",
+    "bootstrap-sass": "^3.3.6",
+    "Chart.js": "^2.1.6",
+    "select2-bootstrap-theme": "^0.1.0-beta.7",
+    "bootstrap-validator": "^0.10.2",
+    "select2": "^4.0.3",
+    "jquery-animateNumber": "^0.0.13"
+  },
+  "resolutions": {
+    "font-awesome": "~4.5",
+    "jquery": "1.9.1 - 2"
+  }
+}
