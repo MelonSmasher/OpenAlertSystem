@@ -27,15 +27,9 @@
                             <select data-error="Select an alert method" required="required"
                                     id="method" name="method" class="form-control">
                                 <option></option>
-                                @permission(['send-email','send-sms'], true)
                                 <option value="both">Both</option>
-                                @endpermission
-                                @ability('admin,power-user,notifier', 'send-email')
                                 <option value="email">Email</option>
-                                @endability
-                                @ability('admin,power-user,notifier', 'send-sms')
                                 <option value="mobile">Mobile Phone</option>
-                                @endability
                             </select>
                             <div class="help-block with-errors"></div>
                         </div>

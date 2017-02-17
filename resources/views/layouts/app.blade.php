@@ -61,11 +61,10 @@
                         <li>
                             <a href="/home"><i class="fa fa-info-circle"></i> Alert Profile</a>
                         </li>
-                        @ability('admin,power-user,notifier', 'send-email,send-sms')
+
                         <li>
                             <a href="/compose"><i class="fa fa-pencil"></i> Alert Builder</a>
                         </li>
-                        @endability
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
