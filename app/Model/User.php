@@ -5,11 +5,16 @@ namespace App\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Backpack\CRUD\CrudTrait;
+use Spatie\Permission\Traits\HasRoles;
+use Backpack\Base\app\Notifications\ResetPasswordNotification as ResetPasswordNotification;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use CrudTrait;
+    use HasRoles;
 
     /**
      * @var array
@@ -48,5 +53,16 @@ class User extends Authenticatable
     public function mobilePhones()
     {
         return $this->hasMany(MobilePhone::class);
+    }
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

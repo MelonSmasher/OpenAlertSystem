@@ -61,10 +61,16 @@
                         <li>
                             <a href="/home"><i class="fa fa-info-circle"></i> Alert Profile</a>
                         </li>
-
+                        @hasanyrole(['admin', 'power-user', 'notifier'])
                         <li>
                             <a href="/compose"><i class="fa fa-pencil"></i> Alert Builder</a>
                         </li>
+                        @endhasanyrole
+                        @hasanyrole(['admin', 'power-user'])
+                        <li>
+                            <a href="/admin"><i class="fa fa-user-secret"></i> Admin</a>
+                        </li>
+                        @endhasanyrole
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
@@ -96,7 +102,7 @@
         </div>
     </nav>
 
-   <!-- <div class="push"></div> -->
+    <!-- <div class="push"></div> -->
     <div id="flash" name="flash" class="flash-message">
         @foreach (['danger', 'warning', 'success', 'info'] as $msg)
             @if(Session::has('alert-' . $msg))

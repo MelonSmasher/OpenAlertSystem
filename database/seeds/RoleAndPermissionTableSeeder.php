@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Model\Role;
-use App\Model\Permission;
+use Backpack\PermissionManager\app\Models\Role;
+use Backpack\PermissionManager\app\Models\Permission;
 
 class RoleAndPermissionTableSeeder extends Seeder
 {
@@ -19,33 +19,19 @@ class RoleAndPermissionTableSeeder extends Seeder
          */
 
         $sendSMS = Permission::create([
-            'name' => 'send-sms',
-            'display_name' => 'Send SMS',
-            'description' => 'Can send SMS messages to recipients.',
+            'name' => 'send-sms'
         ]);
 
         $sendEmail = Permission::create([
-            'name' => 'send-email',
-            'display_name' => 'Send Email',
-            'description' => 'Can send email messages to recipients.',
-        ]);
-
-        $editSettings = Permission::create([
-            'name' => 'edit-settings',
-            'display_name' => 'Edit Settings',
-            'description' => 'Can edit application settings.',
+            'name' => 'send-email'
         ]);
 
         $manageUsers = Permission::create([
-            'name' => 'manage-users',
-            'display_name' => 'Manage Users',
-            'description' => 'Can manage users and their roles.',
+            'name' => 'manage-users'
         ]);
 
         $viewToken = Permission::create([
-            'name' => 'view-token',
-            'display_name' => 'View Token',
-            'description' => 'Can view a users verification token.',
+            'name' => 'view-token'
         ]);
 
         /**
@@ -53,43 +39,35 @@ class RoleAndPermissionTableSeeder extends Seeder
          */
 
         $admin = Role::create([
-            'name' => 'admin',
-            'display_name' => 'Administrator',
-            'description' => 'An application administrator. Can control any aspect of the application.'
+            'name' => 'admin'
         ]);
 
         $powerUser = Role::create([
-            'name' => 'power-user',
-            'display_name' => 'Power User',
-            'description' => 'An application power user can has the ability to manage users accounts and send email and SMS messages.'
+            'name' => 'power-user'
         ]);
 
         $notifier = Role::create([
-            'name' => 'notifier',
-            'display_name' => 'Notifier',
-            'description' => 'A notifier has the ability to send both email and SMS messages.'
+            'name' => 'notifier'
         ]);
 
         Role::create([
-            'name' => 'application-user',
-            'display_name' => 'Application User',
-            'description' => 'An application user has no permissions and is intended for front end users.'
+            'name' => 'application-user'
         ]);
 
         /**
          * Permission Delegation
          */
 
-        $admin->attachPermissions(Permission::all());
+        $admin->givePermissionTo(Permission::all());
 
-        $powerUser->attachPermissions([
+        $powerUser->givePermissionTo([
             $manageUsers,
             $sendSMS,
             $sendEmail,
             $viewToken
         ]);
 
-        $notifier->attachPermissions([
+        $notifier->givePermissionTo([
             $sendSMS,
             $sendEmail
         ]);

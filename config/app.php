@@ -120,7 +120,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -173,6 +173,11 @@ return [
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Snowfire\Beautymail\BeautymailServiceProvider::class,
+        Backpack\Base\BaseServiceProvider::class,
+        Backpack\CRUD\CrudServiceProvider::class,
+        Backpack\LogManager\LogManagerServiceProvider::class,
+        Backpack\Settings\SettingsServiceProvider::class,
+        Backpack\PermissionManager\PermissionManagerServiceProvider::class,
 
         /*
          * Application Service Providers...

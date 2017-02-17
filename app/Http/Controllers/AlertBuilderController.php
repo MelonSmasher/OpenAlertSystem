@@ -25,29 +25,29 @@ class AlertBuilderController extends Controller
         $subject = $data['subject'];
         $message = $data['message'];
         $method = $data['method'];
-        $authorized = true;
+        $authorized = false;
 
         // Verify permissions based on the dispatch method
-        /*        switch ($method) {
-                    case 'both':
-                        if ($user->can(['send-email', 'send-sms'], true)) {
-                            $authorized = true;
-                        }
-                        break;
-                    case 'mobile':
-                        if ($user->can('send-sms', true)) {
-                            $authorized = true;
-                        }
-                        break;
-                    case 'email':
-                        if ($user->can('send-email', true)) {
-                            $authorized = true;
-                        }
-                        break;
-                    default:
-                        $request->session()->flash('alert-danger', 'Alert method not recognized!');
-                        return redirect()->route('index');
-                }*/
+        switch ($method) {
+            case 'both':
+                if ($user->can('send-email') && $user->can('send-sms')) {
+                    $authorized = true;
+                }
+                break;
+            case 'mobile':
+                if ($user->can('send-sms')) {
+                    $authorized = true;
+                }
+                break;
+            case 'email':
+                if ($user->can('send-email')) {
+                    $authorized = true;
+                }
+                break;
+            default:
+                $request->session()->flash('alert-danger', 'Alert method not recognized!');
+                return redirect()->route('index');
+        }
 
         // If we aren't authorized return back
         if (!$authorized) {
