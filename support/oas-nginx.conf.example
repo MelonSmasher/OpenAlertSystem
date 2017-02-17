@@ -1,0 +1,19 @@
+server {
+  listen                         80;
+  server_name                    alert.example.com;
+
+  root                           /usr/share/nginx/html/OpenAlertSystem/public;
+    index                          index.php index.html;
+    location / {
+      try_files                    $uri $uri/ /index.php?$query_string;
+    }
+
+  location ~ \.php$ {
+      include                      fastcgi_params;
+      fastcgi_param                SCRIPT_FILENAME $request_filename;
+      fastcgi_param                PATH_INFO $fastcgi_path_info;
+      fastcgi_param                HTTPS on;
+      fastcgi_param                MOD_X_ACCEL_REDIRECT_ENABLED on;
+      fastcgi_pass                 unix:/var/run/php5-fpm.sock;
+    }
+}
