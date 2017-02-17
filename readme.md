@@ -31,7 +31,7 @@ large number of SMS providers including email based SMS messages.
 
 ## Installation
 
-See the [wiki](https://github.com/MelonSmasher/OpenAlertSystem/wiki).
+See the [wiki](https://github.com/MelonSmasher/OpenAlertSystem/wiki), which is currently incomplete.
 
 ## Screen Shots
 
