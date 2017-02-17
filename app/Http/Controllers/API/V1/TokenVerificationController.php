@@ -43,11 +43,13 @@ class TokenVerificationController extends BaseAPIController
                     $route = route('api.emails.show', ['id' => $verified->id]);
                     $response['type'] = 'email';
                     $response['message'] = 'Email has been verified successfully.';
+                    $response['code'] = 202;
                     break;
                 case 'mobilephone':
                     $route = route('api.phones.show', ['id' => $verified->id]);
                     $response['type'] = 'mobile-phone';
                     $response['message'] = 'Mobile phone has been verified successfully.';
+                    $response['code'] = 202;
                     break;
                 default:
                     return $this->response->accepted();

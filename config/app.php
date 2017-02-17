@@ -174,6 +174,7 @@ return [
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
         Krucas\Settings\Providers\SettingsServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
 
         /*
          * Application Service Providers...

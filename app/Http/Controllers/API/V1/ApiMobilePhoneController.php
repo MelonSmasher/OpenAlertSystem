@@ -79,9 +79,8 @@ class ApiMobilePhoneController extends BaseAPIController
             $token = generateVerificationToken();
             $item->verification_token = $token;
             $item->save();
-            $message = "Welcome!\nYour code is: " . $token . "\nTo verify this number visit:\n" . url('/verify/' . $token);
-            // @todo this should be queued at some point
-            SMS::send($message, [], function ($sms) use ($item) {
+            $message = "Welcome to ".env('APP_NAME', 'Open Alert')."!\nYour code is: " . $token . "\nTo verify this number visit:\n" . url('/verify/' . $token);
+            SMS::queue($message, [], function ($sms) use ($item) {
                 if (env('SMS_DRIVER', 'email') === 'email') {
                     $sms->to('+1' . $item->number, $item->carrier->code);
                 } else {

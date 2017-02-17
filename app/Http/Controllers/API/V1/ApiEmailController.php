@@ -5,9 +5,9 @@ namespace App\Http\Controllers\API\V1;
 use App\Http\Transformers\EmailTransformer;
 use App\Model\Email;
 use Illuminate\Http\Request;
-use Krucas\Settings\Facades\Settings;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Illuminate\Support\Facades\Validator;
+use Snowfire\Beautymail\Beautymail;
 
 class ApiEmailController extends BaseAPIController
 {
@@ -80,7 +80,20 @@ class ApiEmailController extends BaseAPIController
             $token = generateVerificationToken();
             $item->verification_token = $token;
             $item->save();
-            //@todo send the verification email
+
+            $verification_url = url('/verify/' . $token);
+            $confirmation_from_address = env('MAIL_FROM_ADDRESS', 'alert@domain.tld');
+
+            // Build the mail class
+            $beautymail = app()->make(Beautymail::class);
+            // Send the message
+            $beautymail->queue('emails.confirm', ['url' => $verification_url, 'token' => $token],
+                function ($message) use ($item, $confirmation_from_address) {
+                    $message
+                        ->from($confirmation_from_address)
+                        ->to($item->address, $item->user->name)
+                        ->subject('Welcome! Verify your email.');
+                });
         }
 
         $trans = new EmailTransformer();
