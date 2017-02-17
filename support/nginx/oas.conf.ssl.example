@@ -12,7 +12,7 @@ server {
   ssl_ciphers                    HIGH:!aNULL:!MD5;
   ssl_verify_client              off;
 
-  root                           /usr/share/nginx/OpenAlertSystem/garage/public;
+  root                           /usr/share/nginx/OpenAlertSystem/public;
   index                          index.php index.html;
 
   location / {
