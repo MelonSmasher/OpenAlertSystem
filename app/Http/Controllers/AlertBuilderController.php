@@ -69,13 +69,15 @@ class AlertBuilderController extends Controller
         foreach ($users as $user) {
             if ($method === 'mobile' || $method === 'both') {
                 foreach ($user->mobilePhones as $item) {
-                    SMS::queue($sms_mesage, [], function ($sms) use ($item) {
-                        if (env('SMS_DRIVER', 'email') === 'email') {
-                            $sms->to('+1' . $item->number, $item->carrier->code);
-                        } else {
-                            $sms->to('+1' . $item->number);
-                        }
-                    });
+                    if ($item->verified) {
+                        SMS::queue($sms_mesage, [], function ($sms) use ($item) {
+                            if (env('SMS_DRIVER', 'email') === 'email') {
+                                $sms->to('+1' . $item->number, $item->carrier->code);
+                            } else {
+                                $sms->to('+1' . $item->number);
+                            }
+                        });
+                    }
                 }
             }
             if ($method === 'email' || $method === 'both') {
@@ -83,7 +85,9 @@ class AlertBuilderController extends Controller
                 $this->sendAlertEmail($beautymail, $message, $subject, $user->name, $from_address, $user->email);
                 // Send the message to each of their aditional emails
                 foreach ($user->emails as $item) {
-                    $this->sendAlertEmail($beautymail, $message, $subject, $user->name, $from_address, $item->address);
+                    if ($item->verified) {
+                        $this->sendAlertEmail($beautymail, $message, $subject, $user->name, $from_address, $item->address);
+                    }
                 }
 
             }
