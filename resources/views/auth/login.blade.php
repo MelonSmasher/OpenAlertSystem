@@ -15,7 +15,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
                                     <h1>{{ config('app.name', 'Open Alert') }}</h1>
-                                    <h5>Notification System Authentication</h5>
+                                    <h5>Emergency Alert System</h5>
                                 </div>
                             </div>
                             <br/>
