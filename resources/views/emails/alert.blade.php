@@ -9,8 +9,6 @@
 
     @include('beautymail::templates.sunny.contentStart')
 
-    <h4>The following alert has been issued: </h4>
-
     <p>{{$alert}}</p>
 
     @include('beautymail::templates.sunny.contentEnd')
