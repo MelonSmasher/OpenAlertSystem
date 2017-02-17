@@ -11,7 +11,6 @@
         "laravel/framework": "5.3.*",
         "laravel/socialite": "^2.0",
         "predis/predis": "^1.1",
-        "santigarcor/laratrust": "3.1.*",
         "simplesoftwareio/simple-sms": "3.0.*",
         "snowfire/beautymail": "dev-master",
         "thomaswelton/laravel-gravatar": "~1.0",

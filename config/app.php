@@ -172,8 +172,6 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Thomaswelton\LaravelGravatar\LaravelGravatarServiceProvider::class,
-        Krucas\Settings\Providers\SettingsServiceProvider::class,
-        Laratrust\LaratrustServiceProvider::class,
         Snowfire\Beautymail\BeautymailServiceProvider::class,
 
         /*
@@ -233,7 +231,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
-        'Laratrust'   => Laratrust\LaratrustFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,

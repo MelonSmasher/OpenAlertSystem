@@ -16,7 +16,7 @@ class SystemEntitiesSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $this->call(RoleAndPermissionTableSeeder::class);
+        //$this->call(RoleAndPermissionTableSeeder::class);
         Country::insert(countryList());
         MobileCarrier::insert(mobileCarrierList());
         Model::reguard();

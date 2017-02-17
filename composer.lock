@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "245447ce103a91381681827495c8eef2",
-    "content-hash": "785a50eb4701525a335d41ed6e72dd5e",
+    "hash": "466c068e163634144f330035e7582dcf",
+    "content-hash": "c75ee38327b8d447970d0b7ec980235b",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -779,51 +779,6 @@
                 "tokenizer"
             ],
             "time": "2016-12-07 09:37:55"
-        },
-        {
-            "name": "kkszymanowski/traitor",
-            "version": "0.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/KKSzymanowski/Traitor.git",
-                "reference": "0f3ed8ca01f35d7576d3ad0a43e013825d738909"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/KKSzymanowski/Traitor/zipball/0f3ed8ca01f35d7576d3ad0a43e013825d738909",
-                "reference": "0f3ed8ca01f35d7576d3ad0a43e013825d738909",
-                "shasum": ""
-            },
-            "require": {
-                "nikic/php-parser": "^1.0|^2.0|^3.0",
-                "php": ">=5.4"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Traitor\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kuba Szymanowski",
-                    "email": "kuba.szymanowski@inf24.pl"
-                }
-            ],
-            "description": "Add a trait use statement to existing PHP class",
-            "keywords": [
-                "add",
-                "php",
-                "trait"
-            ],
-            "time": "2016-12-18 21:34:36"
         },
         {
             "name": "laravel/framework",
@@ -2193,85 +2148,6 @@
                 "uuid"
             ],
             "time": "2016-11-22 19:21:44"
-        },
-        {
-            "name": "santigarcor/laratrust",
-            "version": "3.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/santigarcor/laratrust.git",
-                "reference": "107c05c74e2d439a76b8ea8fb7b642abdff3b645"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/santigarcor/laratrust/zipball/107c05c74e2d439a76b8ea8fb7b642abdff3b645",
-                "reference": "107c05c74e2d439a76b8ea8fb7b642abdff3b645",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/cache": "~5.0",
-                "illuminate/console": "~5.0",
-                "illuminate/support": "~5.0",
-                "kkszymanowski/traitor": "^0.2.0",
-                "php": ">=5.5.0"
-            },
-            "require-dev": {
-                "illuminate/database": "~5.0",
-                "mockery/mockery": "~0.9",
-                "phpunit/phpunit": "~4.0",
-                "satooshi/php-coveralls": "^1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/commands"
-                ],
-                "psr-4": {
-                    "Laratrust\\": "src/Laratrust/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Andrew Elkins",
-                    "homepage": "http://andrewelkins.com"
-                },
-                {
-                    "name": "Zizaco Zizuini",
-                    "email": "zizaco@gmail.com"
-                },
-                {
-                    "name": "Ben Batschelet",
-                    "homepage": "http://github.com/bbatsche"
-                },
-                {
-                    "name": "Michele Angioni",
-                    "email": "michele.angioni@gmail.com"
-                },
-                {
-                    "name": "Santiago Garcia",
-                    "homepage": "http://santigarcor.me"
-                },
-                {
-                    "name": "Mateo Calle",
-                    "homepage": "https://github.com/Mathius17"
-                }
-            ],
-            "description": "This package provides a flexible way to add Role-based Permissions to Laravel",
-            "keywords": [
-                "acl",
-                "authorization",
-                "laratrust",
-                "laravel",
-                "permissions",
-                "php",
-                "rbac",
-                "roles"
-            ],
-            "time": "2017-02-16 05:59:12"
         },
         {
             "name": "simplesoftwareio/simple-sms",

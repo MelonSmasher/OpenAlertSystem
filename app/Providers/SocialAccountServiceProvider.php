@@ -67,8 +67,8 @@ class SocialAccountServiceProvider
                 ]);
                 // If this is the first user to log in
                 if (User::all()->first()->id == $user->id) {
-                    // Then we need to make them an admin
-                    $user->attachRole(Role::where('name', 'admin')->get()->first());
+                    // Then we need to make them an admin @todo make an admin here
+                    // $user->attachRole(Role::where('name', 'admin')->get()->first());
                 }
             }
             // Associate the user account with the social account for the next login
@@ -95,8 +95,9 @@ class SocialAccountServiceProvider
         }
         // If the user has no roles, make sure they have the application user role.
         if (0 >= count($user->roles)) {
-            // Give the user a default role of application user.
-            $user->attachRole(Role::where('name', 'application-user')->get()->first());
+            // Give the user a default role of application user. @todo attach the base role
+            // $user->attachRole(Role::where('name', 'application-user')->get()->first());
+
         }
         // If the user has been updated then save them
         if ($user->isDirty()) $user->save();

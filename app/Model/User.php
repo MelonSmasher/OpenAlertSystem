@@ -3,13 +3,11 @@
 namespace App\Model;
 
 use Illuminate\Notifications\Notifiable;
-use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use LaratrustUserTrait;
     use Notifiable;
     use SoftDeletes;
 
