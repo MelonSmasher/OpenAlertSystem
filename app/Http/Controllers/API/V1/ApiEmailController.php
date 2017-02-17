@@ -57,7 +57,7 @@ class ApiEmailController extends BaseAPIController
         if ($validator->fails())
             throw new StoreResourceFailedException('Could not store email.', $validator->errors());
 
-        $excluded_domains = []; // @todo add excluded email domains setting
+        $excluded_domains = explode(',', env('MAIL_BANNED_ALERT_DOMAINS', ''));
 
         $email_domain = explode('@', $data['email'])[1];
         if (!empty($excluded_domains)) {
