@@ -8,21 +8,17 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function __construct()
+    public function index()
     {
-        $this->middleware('auth');
+        return redirect()->route('home');
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function home()
     {
         $user = Auth::user();
 

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect()->route('home');
-})->name('index');
+Route::get('/', 'HomeController@index')->name('index');
 
 /**
  * Auth Routes
@@ -32,7 +30,7 @@ Route::group(['prefix' => 'social'], function () {
 
 
 Route::group(['middleware' => ['auth', 'jwt.cookie']], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@home')->name('home');
 
     Route::get('/compose', 'AlertBuilderController@index')->name('builder');
     Route::post('/dispatch', 'AlertBuilderController@dispatchAlert')->name('dispatch');
